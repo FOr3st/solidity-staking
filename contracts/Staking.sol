@@ -21,13 +21,13 @@ contract Staking is ReentrancyGuard, Ownable {
   }
 
   // ---- Views ----
-  function getAccountReward(address account) private view returns (uint) {
+  function getAccountReward(address _account) private view returns (uint) {
     if (totalSupply == 0) {
       return 0;
     }
 
-    uint _deposited = userToStakeAmount[account];
-    uint _rewardAtDepositTime = userToStakeTimeReward[account];
+    uint _deposited = userToStakeAmount[_account];
+    uint _rewardAtDepositTime = userToStakeTimeReward[_account];
     uint _resultingReward = _deposited * (currentReward - _rewardAtDepositTime); 
 
     return _resultingReward;
@@ -56,14 +56,14 @@ contract Staking is ReentrancyGuard, Ownable {
     stakingToken.transfer(msg.sender, _withdrawAmount);
   }
 
-  function distribute(uint reward) external nonReentrant onlyOwner {
+  function distribute(uint _reward) external nonReentrant onlyOwner {
     // NOTE: needs proper implementation
-    currentReward += reward / totalSupply;
+    currentReward += _reward / totalSupply;
   }
 
-  function getAmountToWithdraw(address account) external view returns (uint) {
-    uint _reward = getAccountReward(account);
-    uint _deposited = userToStakeAmount[account];
+  function getAmountToWithdraw(address _account) external view returns (uint) {
+    uint _reward = getAccountReward(_account);
+    uint _deposited = userToStakeAmount[_account];
     return _deposited + _reward;
   }
 }
