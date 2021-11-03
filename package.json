@@ -2,9 +2,8 @@
   "name": "staking-test",
   "version": "1.0.0",
   "description": "Solidity staking",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx hardhat test"
   },
   "keywords": [
     "solidity",
@@ -13,14 +12,14 @@
   "author": "for3st",
   "license": "ISC",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.3.2",
-    "hardhat": "^2.6.7"
+    "@openzeppelin/contracts": "^4.3.2"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "chai": "^4.3.4",
     "ethereum-waffle": "^3.4.0",
-    "ethers": "^5.5.1"
+    "ethers": "^5.5.1",
+    "hardhat": "^2.6.7"
   }
 }
