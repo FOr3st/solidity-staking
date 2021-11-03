@@ -1,7 +1,9 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8;
 
-contract Staking {
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+contract Staking is ReentrancyGuard {
   // ---- State variables ----
   ERC20 private stakingToken;
   ERC20 private rewardToken;
@@ -31,7 +33,7 @@ contract Staking {
   }
 
   // ---- Externals ----
-  function deposit(uint _amount) external {
+  function deposit(uint _amount) external nonReentrant {
     require(userToStakeAmount[msg.sender] == 0, "User already has deposit");
 
     userToStakeAmount[msg.sender] += _amount;
@@ -41,7 +43,7 @@ contract Staking {
     stakingToken.transferFrom(msg.sender, address(this), _amount);
   }
 
-  function withdraw() external {
+  function withdraw() external nonReentrant {
     uint _reward = getAccountReward(msg.sender);
     uint _deposited = userToStakeAmount[msg.sender];
     uint _withdrawAmount = _deposited + _reward;
@@ -52,7 +54,7 @@ contract Staking {
     stakingToken.transfer(msg.sender, _withdrawAmount);
   }
 
-  function distribute(uint reward) external {
+  function distribute(uint reward) external nonReentrant {
     // NOTE: needs proper implementation
     currentReward += reward / totalSupply;
   }
