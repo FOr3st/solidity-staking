@@ -35,6 +35,7 @@ contract Staking is ReentrancyGuard, Ownable {
 
   // ---- Externals ----
   function deposit(uint _amount) external nonReentrant {
+    require(_amount > 0, "Can't stake 0");
     require(userToStakeAmount[msg.sender] == 0, "User already has deposit");
 
     userToStakeAmount[msg.sender] += _amount;

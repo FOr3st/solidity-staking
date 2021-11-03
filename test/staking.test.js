@@ -79,6 +79,10 @@ describe("Staking", function () {
       expect(await staking.getAmountToWithdraw(owner.address)).to.be.equal(10);
     });
 
+    it("Should prevent from staking improper amount", async function () {
+      expect(staking.deposit(0)).to.be.revertedWith("Can't stake 0");
+    });
+
     it("Should update token balances after staking", async function () {
       await staking.connect(signer1).deposit(10);
 
