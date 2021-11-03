@@ -64,6 +64,12 @@ describe("Staking", function () {
         await stakingToken.allowance(signer2.address, staking.address)
       ).to.equal(await stakingToken.balanceOf(signer2.address));
     });
+
+    it("Should allow distribution only to owner", async function () {
+      expect(staking.connect(signer1).distribute(200)).to.be.revertedWith(
+        "Ownable: caller is not the owner"
+      );
+    });
   });
 
   describe("Transactions (single depositor)", function () {

@@ -2,8 +2,9 @@
 pragma solidity ^0.8;
 
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Staking is ReentrancyGuard {
+contract Staking is ReentrancyGuard, Ownable {
   // ---- State variables ----
   ERC20 private stakingToken;
   ERC20 private rewardToken;
@@ -54,7 +55,7 @@ contract Staking is ReentrancyGuard {
     stakingToken.transfer(msg.sender, _withdrawAmount);
   }
 
-  function distribute(uint reward) external nonReentrant {
+  function distribute(uint reward) external nonReentrant onlyOwner {
     // NOTE: needs proper implementation
     currentReward += reward / totalSupply;
   }
