@@ -28,7 +28,7 @@ contract Staking is ReentrancyGuard, Ownable {
 
     uint _deposited = userToStakeAmount[_account];
     uint _rewardAtDepositTime = userToStakeTimeReward[_account];
-    uint _resultingReward = _deposited * (currentReward - _rewardAtDepositTime); 
+    uint _resultingReward = _deposited * (currentReward - _rewardAtDepositTime) / 1e18; 
 
     return _resultingReward;
   }
@@ -58,7 +58,9 @@ contract Staking is ReentrancyGuard, Ownable {
 
   function distribute(uint _reward) external nonReentrant onlyOwner {
     // NOTE: needs proper implementation
-    currentReward += _reward / totalSupply;
+    require(totalSupply > 0, "No stakers to distribute reward");
+
+    currentReward += _reward * 1e18 / totalSupply;
   }
 
   function getAmountToWithdraw(address _account) external view returns (uint) {
