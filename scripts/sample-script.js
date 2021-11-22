@@ -7,7 +7,6 @@ const { ethers } = require("hardhat");
 
 // TODO: populate from env vars
 const stakingToken;
-const rewardToken;
 
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -19,7 +18,7 @@ async function main() {
 
   // We get the contract to deploy
   const Staking = await ethers.getContractFactory("Staking");
-  const staking = await Staking.deploy(stakingToken, rewardToken);
+  const staking = await Staking.deploy(stakingToken);
 
   await staking.deployed();
 

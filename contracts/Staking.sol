@@ -7,7 +7,6 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract Staking is ReentrancyGuard, Ownable {
   // ---- State variables ----
   ERC20 private stakingToken;
-  ERC20 private rewardToken;
 
   uint private totalSupply;
   uint private currentReward;
@@ -15,9 +14,8 @@ contract Staking is ReentrancyGuard, Ownable {
   mapping (address => uint) private userToStakeTimeReward;
 
   // ---- Constructor ----
-  constructor(address _stakingToken, address _rewardToken) {
+  constructor(address _stakingToken) {
     stakingToken = ERC20(_stakingToken);
-    rewardToken = ERC20(_rewardToken);
   }
 
   // ---- Views ----

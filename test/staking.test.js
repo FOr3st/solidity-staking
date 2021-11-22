@@ -15,7 +15,7 @@ describe("Staking", function () {
 
     // Deploying Staking contract
     const Staking = await ethers.getContractFactory("Staking");
-    staking = await Staking.deploy(stakingToken.address, stakingToken.address);
+    staking = await Staking.deploy(stakingToken.address);
     await staking.deployed();
 
     // Fill staking, signer1 and signer2 accounts
